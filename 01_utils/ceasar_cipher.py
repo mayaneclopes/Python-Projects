@@ -24,32 +24,42 @@ Bonus:
 - Show a clean interface
 """
 
-def encrypt(message, key):
+def encrypt(message, key): 
+    #codifica uma mensagem ao deslocar as letras do alfabeto de acordo com a chave,
+    #preservando maiúscular, minúsculas, espaços e pontuações.
     result = ""
-    for char in message:
-        if char.isalpha():
-            base = ord('A') if char.isupper() else ord('a')
+    for char in message: #loop pelos caracteres da mensagem
+        if char.isalpha(): #define o ponto de partida na tabela ascii, 65 para A e 97 para a
+            base = ord('A') if char.isupper() else ord('a') 
+            #shifted faz a matemática para a nova posição:
+            #ord(char) - base converte a letra para um num de 0 a 25
+            #+ key aplica o deslocamento
+            #% 26 usa o operador módulo pra dar a volta no alfabeto se a letra passar de Z ou z
+            #+ base converte de volta para o ascii correto daquela letra
             shifted = (ord(char) - base + key) % 26 + base
-            result += chr(shifted)
-    else:
-        result += char
+            result += chr(shifted) #converte o num ascii de volta p/ caractere e une ao resultado
+        else:
+            result += char
     return result
 
 def decrypt(message, key):
+    #decifra a mensagem ao inverter o deslocamento da chave (chave negativa)
     return encrypt(message, -key)
 
 print("Secret message program")
 choice = input("Do you want to E or D? ").strip().lower()
 
-if choice == "e":
+#Criptografando:
+if choice == "e": 
     text = input("Enter your message: \n")
     try:
         key = int(input("Enter a number between 1 and 25: "))
         encrypted = encrypt(text, key)
         print("Encrypted message: ")
         print(encrypted)
-    except ValueError:
+    except ValueError: #Trata a possibilidade do usuário não digitar um número
         print("Invalid Key")
+#Decriptografando:
 elif choice == 'd':
     text = input("Enter your encrypted message: \n")
     try:
@@ -59,7 +69,7 @@ elif choice == 'd':
         print(decrypted)
     except ValueError:
         print("Invalid Key")
-else: 
+else:  #trata a possiblidade do usuário não escolher E ou D no menu
     print("Invalid choice")
 
     
