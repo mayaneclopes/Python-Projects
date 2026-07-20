@@ -33,6 +33,7 @@ import os
 
 FILENAME = "contacts.csv"
 
+#cria arquivo + cabeçalho caso não exista 
 if not os.path.exists(FILENAME):
     with open(FILENAME, "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
@@ -43,29 +44,33 @@ def add_contact():
     phone = input("Phone: ").strip()
     email = input("Email: ").strip()
 
-    with open(FILENAME, 'r', encoding="utf-8") as f:
+    #verificação de duplicatas: 
+    with open(FILENAME, 'r', encoding="utf-8") as f: 
         reader = csv.DictReader(f)
         for row in reader:
             if row["Name"].lower() == name.lower():
                 print("Contact name already existis")
                 return
-            
-    with open(FILENAME, 'r', encoding="utf-8") as f:
+    
+    #escreve um novo contato ('a' -> append)
+    with open(FILENAME, 'a', encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow([name, phone, email])
-        print("Contect successfully added")
+        print("Contact successfully added")
 
 def view_contacts():
     with open(FILENAME, 'r', encoding="utf-8") as f:
         reader = csv.reader(f)
         rows = list(reader)
 
+        #valid que se só há 1 linha (cabeçalho) então não existem contatos cadastrados
         if len(rows) < 1:
             print("No contacts found")
             return
         
         print("\n Your contacts: \n")
 
+        #print de cada linha
         for row in rows[1:]:
             print(f"{row[0]} | {row[1]} | {row[2]}")
         print()
