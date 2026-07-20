@@ -15,7 +15,7 @@ comments were written by me.
 ## PT
 
 Esta pasta é dedicada exclusivamente aos meus estudos pessoais de Python, onde pretendo
-compartilhar miniprojetos — do nível básico ao complexo — divididos por categorias como
+compartilhar miniprojetos, do nível básico ao complexo, divididos por categorias como
 utilitários, manipulação de dados, automação, ciência de dados, entre outras.
 
 Esses estudos baseiam-se em cursos de Python, principalmente o "The Ultimate Python bootcamp:
