@@ -30,65 +30,92 @@ Bonus:
 
 import csv
 import os
+import re
+
+def is_valid_phone(phone:str) -> bool: #remove espaços, hífens e parênteses e chega se sobraram só números
+    clean_phone = re.sub(r'[\s\-\(\)]', '', phone)
+    #r'..' = raw string (garante que as barras invertidas sejam interpretadas dentro do re), [...] define o conjunto de caracteres lido pela expressão,
+    #\s representa espaços em branco, - representa o hífen mesmo, \(\) representa abertura e fechamento de parênteses
+    return clean_phone.isdigit() and len(clean_phone) >= 8
+
+def is_valid_email(email: str) -> bool: #valida o formato do email para usuario@dominio.ext
+    pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    #de acordo com a doc de re -> ^ = começo da str, [\w\.-] = 1 ou mais caracts são letra, nums, sublinhados, pontos ou hífens
+    #@ é um @ mesmo, [\w\.-]+ domínio, permite letras, nums, pontos e hifens, \. exige um ponto, 
+    #\w+ corresponde a uma ou mais letras p/ extensão (.com, .br), $ = fim da str
+    return bool(re.match(pattern, email))
 
 FILENAME = "contacts.csv"
 
 #cria arquivo + cabeçalho caso não exista 
 if not os.path.exists(FILENAME):
     with open(FILENAME, "w", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
+        writer = csv.writer(f) #arquivo tipo csv
         writer.writerow(["Name", "Phone", "Email"])
 
 def add_contact():
-    name = input("Name: ").strip().title()
-    phone = input("Phone: ").strip()
-    email = input("Email: ").strip()
+    while True: #Valida se nome foi inserido corretamente
+       name = input("Name: ").strip().title()
+       if name:
+           break
+       print("Name cannot be empty, try again")
 
-    #verificação de duplicatas: 
-    with open(FILENAME, 'r', encoding="utf-8") as f: 
-        reader = csv.DictReader(f)
-        for row in reader:
-            if row["Name"].lower() == name.lower():
-                print("Contact name already existis")
-                return
-    
-    #escreve um novo contato ('a' -> append)
-    with open(FILENAME, 'a', encoding="utf-8") as f:
+    with open(FILENAME, "r", encoding="utf-8") as f: #lê o arq csv e verifica se o nome está cadastrado desconsiderando maiúsculas
+       reader = csv.DictReader(f)
+       for row in reader:
+           if row["Name"].lower() == name.lower():
+               print("Contact name already exists and cannot be added again")
+               return #se o contato já existir, a fç é interrompida
+
+#loops que usas as fçs auxiliares do topo p/ validar os dados:
+    while True: 
+        phone = input("Phone: ").strip()
+        if is_valid_phone(phone):
+            break
+        print("Invalid phone number.")
+    while True: 
+        email = input("Email: ").strip()
+        if is_valid_email(email):
+            break
+        print("Invalid email.")
+    #salva os dados já validados (a => append)
+    with open(FILENAME, "a", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow([name, phone, email])
-        print("Contact successfully added")
+        print("\nContact successfully added.")
 
-def view_contacts():
+def view_contacts(): #abertura e leitura de todas as linhas do csv
     with open(FILENAME, 'r', encoding="utf-8") as f:
         reader = csv.reader(f)
         rows = list(reader)
 
         #valid que se só há 1 linha (cabeçalho) então não existem contatos cadastrados
-        if len(rows) < 1:
+        if len(rows) <= 1:
             print("No contacts found")
             return
         
         print("\n Your contacts: \n")
 
-        #print de cada linha
+        #print de cada linha, ignorando o cabeçalho que fica fixo
         for row in rows[1:]:
-            print(f"{row[0]} | {row[1]} | {row[2]}")
+            if len(row) == 3: #a linha tem de ter ao menos 3 colunas pra printar
+                print(f"{row[0]} | {row[1]} | {row[2]}")
         print()
 
-def search_contact():
+def search_contact(): #solicita um input para busca
     term = input("Enter the contact name you want to search: ").strip().lower()
-    found = False
+    found = False #controle
 
     with open(FILENAME, 'r', encoding="utf-8") as f:
         reader = csv.DictReader(f)
-        for row in reader:
+        for row in reader: #verifica se o termo digitado está em "Name" e, se sim, muda o valor booleano do controle
             if term in row["Name"].lower():
-                print(f"{row["Name"]} | {row["Phone"]}")
+                print(f"{row['Name']} | {row['Phone']} | {row['Email']}")
                 found = True
-    if not found:
+    if not found: #se não, segue a vida
         print("No matching contact found")
 
-def main():
+def main(): #main loop que mantém a interface interativa rodando até o usuário decidir sair na opção 4
     while True:
         print("\nContact Book")
         print("1. Add Contact")
@@ -97,6 +124,7 @@ def main():
         print("4. Exit")
 
         choice = input("Choose an option from 1 to 4: ").strip()
+        
         if choice == "1":
             add_contact()
         elif choice == "2":
@@ -105,9 +133,10 @@ def main():
             search_contact()
         elif choice == "4":
             print("Thank you for using our software")
-            break
-        else: 
+            break #encerra o loop e o programa
+        else:
             print("Invalid choice")
 
+#garante a excução da fç main apenas se executada diretamente pelo usuário
 if __name__ == "__main__":
     main()
