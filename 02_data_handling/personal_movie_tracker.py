@@ -24,25 +24,30 @@ Bonus:
 import os
 import json 
 
-FIME_NAME = "movies.json"
+FIME_NAME = "movies.json" #naming db
 
 def load_movies():
+    """Loads movies from JSON file and
+    returns an empty list in case the file
+    doesn't exist yet"""
     if not os.path.exists(FIME_NAME):
         return []
     with open(FIME_NAME, "r", encoding="utf-8") as f:
         return json.load(f)
 
 def save_movies(movies):
+    """"Saves the updated list in the JSON file"""
     with open(FIME_NAME, "w", encoding="utf-8") as f:
         json.dump(movies, f, indent=2)
 
 def add_movies(movies):
-    title = input("Enter movie name: ").strip().lower()
+    """" Asks user for data, validates it and adds as a new movie """
+    title = input("Enter movie name: ").strip().title()
 
     if any(movie["title"].lower() == title for movie in movies):
         print("This movie already exists")
         return
-    genre = input("Genre: ").strip().lower()
+    genre = input("Genre: ").strip().title()
     try: 
         rating = float(input("Enter rating from 0 to 10: "))
         if not (0 <= rating <= 10):
@@ -56,11 +61,12 @@ def add_movies(movies):
     print("Movie added successfully!")
 
 def search_movies(movies):
-    term = input("Enter the title or genre: ").strip().lower()
+    """"Searchs for movies by title or genre """
+    term = input("Enter the title or genre: ").strip().title()
 
     results = [
         movie for movie in movies
-        if term in movie['title'].lower() or term in movie['genre'].lower()
+        if term in movie['title'].title() or term in movie['genre'].title()
      ]
     if not results: 
         print("No matching results")
@@ -71,6 +77,7 @@ def search_movies(movies):
         print(f"{movie["title"]} | {movie["genre"]} | {movie["rating"]}")
 
 def view_movie(movies):
+    """Shows all movies saved as a table"""
     if not movies:
         print("No movies saved")
         return
@@ -80,6 +87,7 @@ def view_movie(movies):
     print("-"*30)
 
 def run_movie_db():
+    """Main menu and control"""
     movies = load_movies()
 
     while True:

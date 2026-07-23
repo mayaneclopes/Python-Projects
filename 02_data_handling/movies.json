@@ -1,12 +1,17 @@
 [
   {
-    "title": "ilha do medo",
-    "genre": "terror",
+    "title": "The Exorcist",
+    "genre": "Horror",
+    "rating": 2.0
+  },
+  {
+    "title": "Toy Story",
+    "genre": "Animation",
     "rating": 10.0
   },
   {
-    "title": "toy story",
-    "genre": "infantil",
-    "rating": 6.0
+    "title": "Odissey",
+    "genre": "Adventure",
+    "rating": 9.0
   }
 ]
