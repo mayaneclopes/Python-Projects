@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "name": "Lucas Almeida",
+    "email": "lucas.almeida@example.com",
+    "location": "São Paulo, SP",
+    "is_active": true
+  },
+  {
+    "id": 2,
+    "name": "Mariana Costa",
+    "email": "mariana.costa@example.com",
+    "location": "Curitiba, PR",
+    "is_active": false
+  },
+  {
+    "id": 3,
+    "name": "Gabriel Ferreira",
+    "email": "gabriel.ferreira@example.com",
+    "location": "Belo Horizonte, MG",
+    "is_active": true
+  },
+  {
+    "id": 4,
+    "name": "Beatriz Santos",
+    "email": "beatriz.santos@example.com",
+    "location": "Florianópolis, SC",
+    "is_active": true
+  },
+  {
+    "id": 5,
+    "name": "Rafael Oliveira",
+    "email": "rafael.oliveira@example.com",
+    "location": "Porto Alegre, RS",
+    "is_active": false
+  },
+  {
+    "id": 6,
+    "name": "Camila Rocha",
+    "email": "camila.rocha@example.com",
+    "location": "Salvador, BA",
+    "is_active": true
+  },
+  {
+    "id": 7,
+    "name": "Eduardo Martins",
+    "email": "eduardo.martins@example.com",
+    "location": "Recife, PE",
+    "is_active": false
+  },
+  {
+    "id": 8,
+    "name": "Fernanda Lima",
+    "email": "fernanda.lima@example.com",
+    "location": "Fortaleza, CE",
+    "is_active": true
+  },
+  {
+    "id": 9,
+    "name": "Thiago Mendes",
+    "email": "thiago.mendes@example.com",
+    "location": "Goiânia, GO",
+    "is_active": true
+  },
+  {
+    "id": 10,
+    "name": "Juliana Barros",
+    "email": "juliana.barros@example.com",
+    "location": "Manaus, AM",
+    "is_active": false
+  }
+]

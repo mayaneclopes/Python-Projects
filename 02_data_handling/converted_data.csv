@@ -1,0 +1,11 @@
+id,name,email,location,is_active
+1,Lucas Almeida,lucas.almeida@example.com,"São Paulo, SP",True
+2,Mariana Costa,mariana.costa@example.com,"Curitiba, PR",False
+3,Gabriel Ferreira,gabriel.ferreira@example.com,"Belo Horizonte, MG",True
+4,Beatriz Santos,beatriz.santos@example.com,"Florianópolis, SC",True
+5,Rafael Oliveira,rafael.oliveira@example.com,"Porto Alegre, RS",False
+6,Camila Rocha,camila.rocha@example.com,"Salvador, BA",True
+7,Eduardo Martins,eduardo.martins@example.com,"Recife, PE",False
+8,Fernanda Lima,fernanda.lima@example.com,"Fortaleza, CE",True
+9,Thiago Mendes,thiago.mendes@example.com,"Goiânia, GO",True
+10,Juliana Barros,juliana.barros@example.com,"Manaus, AM",False
